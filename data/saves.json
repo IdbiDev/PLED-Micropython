@@ -1,0 +1,24 @@
+{
+  "led_strips": [
+    {
+      "type": "ws2815",
+      "pin": 0,
+      "name": "Jobb ajto",
+      "led_count": 250,
+      "animation_id": 3,
+      "animation_speed": 0.5,
+      "power": true,
+      "color": [123, 156, 255, 0.5]
+    },
+    {
+      "type": "ws2815",
+      "pin": 1,
+      "name": "Bal ajto",
+      "led_count": 250,
+      "animation_id": 3,
+      "animation_speed": 0.5,
+      "power": true,
+      "color": [123, 156, 255, 0.5]
+    }
+  ]
+}
