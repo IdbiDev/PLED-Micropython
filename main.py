@@ -79,6 +79,8 @@ while True:
                 led_strip = led_strip_manager.led_strips[strip_id]
                 for setting_name, setting_value in setting_data.items():
                     setattr(led_strip, setting_name, setting_value)
+                led_strip.refresh_led_strip()
+            data_manager.save()
 
         elif packet_id == PacketType.HOST_REQUEST_SETTINGS.value:  # data: Empty
             # Pack up the settings
@@ -101,6 +103,7 @@ while True:
                     led_strip_data["power"],
                     led_strip_data["color"]
                 )
+            data_manager.save()
 
         packet_manager.complete()
     except Exception as e:
