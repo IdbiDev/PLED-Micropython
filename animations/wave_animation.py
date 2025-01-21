@@ -9,7 +9,7 @@ class WaveAnimation(animation.Animation):
     def get_colors(self, led_strip) -> dict[int, tuple[int, int, int, float]]:
         led_colors = {}
 
-        counter = led_strip.animation_progress[self.id]
+        counter = led_strip.animation_progress.get("counter", 0)
 
         if counter > 0:
             led_colors[counter - 1] = (0, 0, 0, 0)
@@ -20,7 +20,7 @@ class WaveAnimation(animation.Animation):
             led_colors[led_index] = led_strip.color
 
             if counter >= led_strip.led_count:
-                led_strip.animation_progress[self.id] = 0
+                led_strip.animation_progress["counter"] = 0
 
-        led_strip.animation_progress[self.id] += 1
+        led_strip.animation_progress["counter"] = counter + 1
         return led_colors

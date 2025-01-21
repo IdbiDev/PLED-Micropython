@@ -49,7 +49,7 @@ while True:
             if data.startswith("led_controller"):
                 packet_manager.complete()
             else:
-                packet_manager.complete_error("Bad test com!")
+                packet_manager.complete_error("connection_failed!")
             continue
 
         if packet_id == PacketType.UPDATE_LED_STRIP_POWER.value:  # data: {strip_id: True}

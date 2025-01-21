@@ -32,7 +32,7 @@ class LedStrip:
         self.power = power
         self.color = color
         self.counter = Counter(animation_speed)
-        self.animation_progress = {}
+        self.animation_progress_data = {} # {"counter": 0, "up": 0}
 
         # Todo: Pico specific things
         self.brightness_levels = [0.05 for _ in range(self.led_count)]
