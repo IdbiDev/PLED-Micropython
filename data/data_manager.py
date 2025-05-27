@@ -1,11 +1,23 @@
 import json
+import struct
 
 
 class DataManager:
     def __init__(self, led_strip_manager):
         self.led_strip_manager = led_strip_manager
 
-    def get_data(self):
+    # id countOfStrips (id, namelength, name, ledcount pinnum ledtype anim  animspeed pwr    color)
+    # 0xA | 0xF |   0x1  | nameLength | nameData | 0xFFFF | 0xF   | 0xF    | 0xF | 0xFF    | 0xF | 0xRRGGBBAA |
+    def get_data_bytes(self):
+        strip_datas = struct.pack("<B", len(self.led_strip_manager.led_strips))
+        for strip in self.led_strip_manager.led_strips:
+            strip_datas = strip_datas + struct.pack("<BH", strip.id, len(strip.name))
+            strip_datas = strip_datas + strip.name.encode('utf-8')
+            strip_datas = strip_datas + struct.pack("<HBBBB?H", strip.led_count, strip.pin, strip.type, strip.animation_id, strip.animation_speed, strip.power,
+                                                    struct.pack("<BBBB", strip.color[0], strip.color[1], strip.color[2], strip.color[3]))
+        return strip_datas
+
+    def get_data_json(self):
         strip_datas = []
         for strip in self.led_strip_manager.led_strips:
             strip_data = {
@@ -26,7 +38,7 @@ class DataManager:
     def save(self):
         with open('saves.json', 'w') as f:
             f.seek(0)
-            f.write(json.dumps(self.get_data()))
+            f.write(json.dumps(self.get_data_json()))
 
     def load(self):
         with open('saves.json', 'r') as f:

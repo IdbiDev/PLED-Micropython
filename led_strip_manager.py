@@ -17,7 +17,7 @@ class LedStripManager:
         self.led_strips.pop(id)
         self.led_strips_slot[id] = False
 
-    def register_strip(self, strip_type, pin, name, led_count, animation_id, animation_speed, power, color: tuple[int, int, int, float]):
+    def register_strip(self, strip_type, pin, name, led_count, animation_id, animation_speed, power, color: tuple[int, int, int, int]):
         free_id = self.get_free_slot()
         if free_id is None:
             return None
